@@ -232,7 +232,7 @@ Reboot the guest. From the host, verify the agent is listening:
 curl <GUEST_IP>:8000
 ```
 
-![cronjob](cronjob.png){: w="700" h="400" .shadow }
+![cronjob](/assets/images/cape/cronjob.png){: w="700" h="400" .shadow }
 _cronjob_
 *A successful curl indicates the agent cronjob is working*
 
