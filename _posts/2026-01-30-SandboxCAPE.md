@@ -4,9 +4,8 @@ date: 2026-03-02
 categories: [Cybersecurity, Malware Analysis]
 tags: [capev2, linux, sandbox, malware, ubuntu, automation]
 description: A comprehensive guide to setting up CAPEv2 for automating Linux  malware triaging.
-media_subpath: /assets/lib/images/cape/
 image:
-  path: cape.png
+  path: /assets/lib/images/cape/cape.png
   alt: CAPE
 ---
 
@@ -47,7 +46,7 @@ The official documentation for CAPEv2 can be found [here](https://capev2.readthe
 
 Install Ubuntu 22.04 LTS and verify your hardware configuration in your VM settings.
 
-![Hardware Configuration](hardware-config.png){: w="700" h="400" .shadow }
+![Hardware Configuration](/assets/lib/images/cape/hardware-config.png){: w="700" h="400" .shadow }
 _Example hardware allocation for the CAPE host_
 
 After installing the host OS, run the following commands to prepare the environment:
@@ -104,7 +103,7 @@ Check if the CAPE services are running:
 sudo systemctl status cape*
 ```
 
-![CAPE services](cape-services.png){: w="700" h="400" .shadow }
+![CAPE services](/assets/lib/images/cape/cape-services.png){: w="700" h="400" .shadow }
 _Verifying active CAPE services_
 
 
@@ -114,12 +113,12 @@ To access the web interface, identify your host IP:
 ifconfig
 ```
 
-![ifconfig](ifconfig.png){: w="700" h="400" .shadow }
+![ifconfig](/assets/lib/images/cape/ifconfig.png){: w="700" h="400" .shadow }
 _Host ip_
 
 Then, navigate to `http://<YOUR_IP>:8000` in your browser.
 
-![Web ui](initial-dash.png){: w="700" h="400" .shadow }
+![Web ui](/assets/lib/images/cape/initial-dash.png){: w="700" h="400" .shadow }
 _The CAPE Web Interface_
 
 -----
@@ -154,7 +153,7 @@ Download a Linux ISO (e.g., [Ubuntu 20.04 LTS](https://releases.ubuntu.com/focal
 virt-manager
 ```
 
-![QEMU](QEMU.png){: w="700" h="400" .shadow }
+![QEMU](/assets/lib/images/cape/QEMU.png){: w="700" h="400" .shadow }
 _QEMU KVM_
 
 1.  Go to **File \> New Virtual Machine**.
@@ -184,12 +183,12 @@ Identify the host interface:
 ifconfig # Look for virbr0 (e.g., 192.168.122.1)
 ```
 
-![VIRBR0](virbr0.png){: w="700" h="400" .shadow }
+![VIRBR0](/assets/lib/images/cape/virbr0.png){: w="700" h="400" .shadow }
 _virbr0_
 
 Identify the guest interface (e.g., `enp1s0`):
 
-![enp1s0](enp1s0.png){: w="700" h="400" .shadow }
+![enp1s0](/assets/lib/images/cape/enp1s0.png){: w="700" h="400" .shadow }
 _enp1s0_
 
 Run these commands **on the guest machine** to route traffic:
@@ -205,7 +204,7 @@ sudo iptables -A FORWARD -j LOG
 
 Verify with `sudo iptables --list`.
 
-![iptables](iptables.png){: w="700" h="400" .shadow }
+![iptables](/assets/lib/images/cape/iptables.png){: w="700" h="400" .shadow }
 _iptables_
 
 Test the connection from the **host** using `tcpdump`:
@@ -214,7 +213,7 @@ Test the connection from the **host** using `tcpdump`:
 sudo tcpdump -i virbr0
 ```
 
-![tcpdump](tcpdump.png){: w="700" h="400" .shadow }
+![tcpdump](/assets/lib/images/cape/tcpdump.png){: w="700" h="400" .shadow }
 _tcpdump_
 
 #### Installing the CAPE Agent
@@ -239,7 +238,7 @@ _cronjob_
 
 Finally, take a **Snapshot** in Virt-Manager so CAPE can revert the VM after each analysis.
 
-![snapshot](snapshot.png){: w="700" h="400" .shadow }
+![snapshot](/assets/lib/images/cape/snapshot.png){: w="700" h="400" .shadow }
 _snapshot_
 
 -----
@@ -248,25 +247,25 @@ _snapshot_
 
 Configurations are located in `/opt/CAPEv2/conf`.
 
-![configuration-files](configuration-files.png){: w="700" h="400" .shadow }
+![configuration-files](/assets/lib/images/cape/configuration-files.png){: w="700" h="400" .shadow }
 _configuration-files_
 
 Modify the following:
 
   * **cuckoo.conf**: Specify the network adapter IP for routing.
-    ![cuckoo-conf](cuckoo-conf.png){: w="700" h="400" .shadow }
+    ![cuckoo-conf](/assets/lib/images/cape/cuckoo-conf.png){: w="700" h="400" .shadow }
 
   * **auxiliary.conf**: Verify the interface name.
-    ![auxiliary](auxiliary.png){: w="700" h="400" .shadow }
+    ![auxiliary](/assets/lib/images/cape/auxiliary.png){: w="700" h="400" .shadow }
 
   * **kvm.conf**: Define your VM details (name, snapshot).
-    ![kvm](kvm.png){: w="700" h="400" .shadow }
+    ![kvm](/assets/lib/images/cape/kvm.png){: w="700" h="400" .shadow }
 
   * **processing.conf**: Ensure `strace` is enabled.
-    ![processing](processing.png){: w="700" h="400" .shadow }
+    ![processing](/assets/lib/images/cape/processing.png){: w="700" h="400" .shadow }
 
   * **routing.conf**: Set the internet route and adapter.
-    ![routing](routing.png){: w="700" h="400" .shadow }
+    ![routing](/assets/lib/images/cape/routing.png){: w="700" h="400" .shadow }
 
 -----
 
@@ -274,21 +273,21 @@ Modify the following:
 
 You can now submit files through the web portal.
 
-![submission-filedetails](submission-filedetails.png){: w="700" h="400" .shadow }
+![submission-filedetails](/assets/lib/images/cape/submission-filedetails.png){: w="700" h="400" .shadow }
 *Submitting a malware sample*
 
 View the queue and results in the portal:
 
-![portal](portal.png){: w="700" h="400" .shadow }
+![portal](/assets/lib/images/cape/portal.png){: w="700" h="400" .shadow }
 
 #### Analysis Results
 
 CAPE provides detailed behavioral and network analysis:
 
-![behavioural](behavioural.png){: w="700" h="400" .shadow }
+![behavioural](/assets/lib/images/cape/behavioural.png){: w="700" h="400" .shadow }
 {: w="700" h="400" }
 
-![network](network.png){: w="700" h="400" .shadow }
+![network](/assets/lib/images/cape/network.png){: w="700" h="400" .shadow }
 
 ```
 ```
